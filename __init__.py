@@ -73,10 +73,8 @@ class YoutubeSkill(CommonPlaySkill):
         # TODO: check status code etc...
         html = res.content
         soup = BeautifulSoup(html, 'html.parser')
-        vids = soup.findAll(attrs={'class':'yt-simple-endpoint'})
+        vids = soup.findAll('a',attrs={'class':'yt-uix-tile-link'})
 
-        for vid in vids:
-            self.speak_dialog('debug')
         for vid in vids:
             if not re.match('/watch\?v=\w{11}', vid['href']):
               LOG.debug('no media: ' + vid['href'])
