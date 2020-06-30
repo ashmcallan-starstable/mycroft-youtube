@@ -2,6 +2,7 @@
 #
 # Copyright (c) 2019 Drew Webber (mcdruid)
 # Copyright (c) 2019 John Bartkiw
+# Copyright (c) 2020 Nicolas Gruwe
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +69,6 @@ class YoutubeSkill(CommonPlaySkill):
 
     # Attempt to find the first result matching the query string
     def search_youtube(self, search_term):
-        LOG.debug('NICOLAS NICOLAS')
         tracklist = []
         res = requests.get(search_url + search_term)
         # TODO: check status code etc...
