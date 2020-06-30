@@ -73,7 +73,7 @@ class YoutubeSkill(CommonPlaySkill):
         # TODO: check status code etc...
         html = res.content
         soup = BeautifulSoup(html, 'html.parser')
-        vids = soup.findAll('a',attrs={'class':'yt-uix-tile-link'})
+        vids = soup.findAll('a')
 
         for vid in vids:
             if not re.match('/watch\?v=\w{11}', vid['href']):
@@ -92,7 +92,7 @@ class YoutubeSkill(CommonPlaySkill):
             wait_while_speaking()
             self.mediaplayer.play()
             return
-
+        
         # We didn't find any playable results
         self.speak_dialog('not.found')
         wait_while_speaking()
