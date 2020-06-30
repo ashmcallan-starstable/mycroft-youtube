@@ -17,6 +17,7 @@ This is still untidy, but the basic functionality works.
 ## Credits
 * mcdruid
 * John Bartkiw
+* Nicolas Gruwe
 
 ## Category
 **Entertainment**
