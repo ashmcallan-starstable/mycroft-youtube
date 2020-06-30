@@ -2,7 +2,6 @@
 #
 # Copyright (c) 2019 Drew Webber (mcdruid)
 # Copyright (c) 2019 John Bartkiw
-# Copyright (c) 2020 Nicolas Gruwe
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -74,7 +73,7 @@ class YoutubeSkill(CommonPlaySkill):
         # TODO: check status code etc...
         html = res.content
         soup = BeautifulSoup(html, 'html.parser')
-        vids = soup.findAll(attrs={'class':'yt-uix-tile-link'})
+        vids = soup.findAll(attrs={'class':'yt-simple-endpoint'})
 
         for vid in vids:
             if not re.match('/watch\?v=\w{11}', vid['href']):
