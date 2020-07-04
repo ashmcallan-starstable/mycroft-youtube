@@ -63,45 +63,30 @@ class YoutubeSkill(CommonPlaySkill):
         return phrase, CPSMatchLevel.GENERIC, phrase
 
     def CPS_start(self, phrase, data):
+        LOG.debug(phrase)
         LOG.debug('CPS Start: ' + data)
         self.search_youtube(data)
 
     # Attempt to find the first result matching the query string
     def search_youtube(self, search_term):
         tracklist = []
-        res = requests.get(search_url + search_term)
-        # TODO: check status code etc...
-        html = res.content
-        soup = BeautifulSoup(html, 'html.parser')
-        vids = soup.findAll('a')
-
-        for vid in vids:
-            if not re.match('/watch\?v=\w{11}', vid['href']):
-              LOG.debug('no media: ' + vid['href'])
-              continue
-
-            self.vid_url = vid['href']
-            self.vid_name = vid.string
-            self.stream_url = self.get_stream_url(self.vid_url)
-            LOG.debug('Found stream URL: ' + self.vid_url)
-            LOG.debug('Media title: ' + self.vid_name)
-            tracklist.append(self.stream_url)
-            self.mediaplayer.add_list(tracklist)
-            self.audio_state = 'playing'
-            self.speak_dialog('now.playing', {'content': self.vid_name} )
-            wait_while_speaking()
-            self.mediaplayer.play()
-            return
-        
-        # We didn't find any playable results
-        self.speak_dialog('not.found')
+        self.vid_url ='/watch?v=jrTMMG0zJyI'
+        self.stream_url = self.get_stream_url(self.vid_url)
+        LOG.debug('Found stream URL: ' + self.vid_url)
+        LOG.debug('Media title: ' + 'Chill Music')
+        tracklist.append(self.stream_url)
+        self.mediaplayer.add_list(tracklist)
+        self.audio_state = 'playing'
+        self.speak_dialog('now.playing', {'content': 'Chill Music'} )
         wait_while_speaking()
-        LOG.debug('Could not find any results with the query term: ' + search_term)
+        self.mediaplayer.play()
 
     def get_stream_url(self, youtube_url):
         abs_url = base_url + youtube_url
+        LOG.debug(abs_url);
         LOG.debug('pafy processing: ' + abs_url)
         streams = pafy.new(abs_url)
+        LOG.debug(streams)
         LOG.debug('audiostreams found: ' + str(streams.audiostreams));
         bestaudio = streams.getbestaudio()
         LOG.debug('audiostream selected: ' + str(bestaudio));
